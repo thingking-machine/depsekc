@@ -7,22 +7,22 @@ include:
   - README.md
   - LICENSE.md
 url: https://thingking-machine.github.io
-baseurl: /openai
+baseurl: /depsekc
 
 title: Thingking Machine
 description: A machine is a thing. Things can not think. ...but some of them can thingk!
 
 machine:
   name: Thingking-Machine
-  instructions_file: thingking.txt
-  token: openai.txt
-  apiUrl: https://api.openai.com/v1/chat/completions
+  instructions_file: complete_thingking.txt
+  token: depsek.txt
+  apiUrl: https://api.deepseek.com/beta/completions
 
 app:
-  worker_name: oaiapi.js
+  worker_name: depsekcapi.js
 
 lm:
-  model: gpt-4.1
+  model: deepseek-chat
   max_tokens: 8192
   presence_penalty: 0.0
   frequency_penalty: 0.0
