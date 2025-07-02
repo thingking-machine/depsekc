@@ -301,6 +301,7 @@ class MachineApp {
     this.elements.loadingOverlay.style.display = 'flex';
     
     try {
+      const cmjMessages = platoHtmlToCmj(htmlContent);
       const multilogText = platoHtmlToPlatoText(htmlContent);
       const workerPayload = {
         config: this.settings.machine,
