@@ -344,11 +344,11 @@ class MachineApp {
   _processLlmResponse = (llmResponseData, originalCmjMessages) => {
     try {
       console.log('Worker task successful. LLM Response:', llmResponseData);
-      if (!llmResponseData || !llmResponseData.message || llmResponseData.message.length === 0) {
+      if (!llmResponseData || llmResponseData.length === 0) {
         throw new Error('LLM response doesnt have a message/text.');
       }
       
-      const desoupedText = llmSoupToText(llmResponseData.message);
+      const desoupedText = llmSoupToText(llmResponseData);
       const newCmjMessage = {
         role: 'assistant',
         name: this.settings.machine.name,
