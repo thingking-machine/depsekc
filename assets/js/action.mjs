@@ -370,7 +370,7 @@ class MachineApp {
         this.elements.loadingOverlay.style.display = 'none';
         console.log('Main thread: Message received from worker:', e.data);
         if (e.data.type === 'success') {
-          this._processLlmResponse(e.data.data, cmjMessages);
+          this._processLlmResponse(e.data.data, cmjMessages, suffix);
         } else if (e.data.type === 'error') {
           console.error('Main thread: Error message from worker:', e.data.error);
           alert(`Worker reported an error: ${e.data.error}`);
@@ -395,7 +395,7 @@ class MachineApp {
     }
   };
   
-  _processLlmResponse = (llmResponseData, originalCmjMessages) => {
+  _processLlmResponse = (llmResponseData, originalCmjMessages, suffix) => {
     try {
       console.log('Worker task successful. LLM Response:', llmResponseData);
       if (!llmResponseData || llmResponseData.length === 0) {
@@ -403,13 +403,13 @@ class MachineApp {
       }
       
       const desoupedText = llmSoupToText(llmResponseData);
-      const newCmjMessage = {
-        role: 'assistant',
-        name: this.settings.machine.name,
-        content: desoupedText
-      };
-      
-      const updatedCmjMessages = [...originalCmjMessages, newCmjMessage];
+      console.log('Desouped text:', desoupedText);
+      const deassistedText = desoupedText.replace(/^Assistant:\s*/, '').trim();
+      const lastMessage = originalCmjMessages.at(-1);
+      const updatedCmjMessages = [
+        ...originalCmjMessages.slice(0, -1),
+        { ...lastMessage, content: lastMessage.content + deassistedText + suffix}
+      ];
       const updatedPlatoText = CmjToPlatoText(updatedCmjMessages);
       
       if (typeof updatedPlatoText !== 'string') {
