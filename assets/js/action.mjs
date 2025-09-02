@@ -349,6 +349,7 @@ class MachineApp {
       let suffix = null;
       const cmjMessages = platoHtmlToCmj(htmlContent);
       const lastMessage = cmjMessages[-1];
+      console.log('Last message:', lastMessage)
       if (lastMessage.name.trim() === 'Suffix') {
         suffix = lastMessage.content
         cmjMessages.pop()
