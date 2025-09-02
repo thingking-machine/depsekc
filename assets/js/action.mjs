@@ -349,13 +349,13 @@ class MachineApp {
       let suffix = null;
       const cmjMessages = platoHtmlToCmj(htmlContent);
       const lastMessage = cmjMessages.at(-1);
-      console.log('CMJ Messages:', cmjMessages);
       console.log('Last message:', lastMessage);
       if (lastMessage.name.trim() === 'Suffix') {
         suffix = lastMessage.content;
         cmjMessages.pop();
       }
-      const multilogText = platoHtmlToPlatoText(htmlContent);
+      console.log('CMJ Messages:', cmjMessages);
+      const multilogText = CmjToPlatoText(cmjMessages);
       const workerPayload = {
         config: this.settings.machine,
         settings: this.settings.llm,
